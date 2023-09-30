@@ -12,4 +12,6 @@ Image Manipulation: Users can upload an image (logo) and position it on the vide
 
 Persistence: Text entered by users is saved to a MongoDB database, allowing the most recent text to be displayed even after refreshing the page.
 
+## TEXT ADDED
+![Text Added ](https://github.com/Knight7181/Livesitter/assets/100278574/6b67bcf5-fddd-4f5a-aba7-90e53e7ff6be)
 
