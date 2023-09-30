@@ -1,0 +1,44 @@
+#user-text {
+    position: absolute;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+#logo-preview {
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.position-top-left {
+    top: 10px;
+    left: 10px;
+}
+
+.position-top-right {
+    top: 10px;
+    right: 10px;
+}
+
+.position-bottom-left {
+    bottom: 10px;
+    left: 10px;
+}
+
+.position-bottom-right {
+    bottom: 10px;
+    right: 10px;
+}
+
+#add-text-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#add-text-button:hover {
+    background-color: #0056b3;
+}

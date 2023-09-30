@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Text and Image Positioning Demo</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div>
+        <!-- Video Container -->
+        <div style="position: relative;">
+            <iframe width="640" height="480" src="https://rtsp.me/embed/aDi3yNaK/" frameborder="0" allowfullscreen></iframe>
+            <div id="user-text" class="position-top-left">User Text</div>
+            <img src="" alt="Logo" id="logo-preview" class="position-top-left" style="display: none; max-width: 100px; max-height: 100px;">
+        </div>
+
+        <!-- Text Options Section -->
+        <div class="options-section">
+            <h2>Text Options</h2>
+            <h3>Text can be resized, repositioned, and change color.</h3>
+            <!-- Font Size Selection Dropdown -->
+            <select id="font-size-select" onchange="changeFontSize()">
+                <option value="12">Small</option>
+                <option value="16">Medium</option>
+                <option value="20">Large</option>
+                <option value="24">Extra Large</option>
+            </select>
+
+            <!-- Font Color Selection Dropdown -->
+            <select id="font-color-select" onchange="changeFontColor()">
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
+                <option value="black">Black</option>
+                <option value="red">Red</option>
+                <option value="pink">Pink</option>
+                <option value="blue">Blue</option>
+            </select>
+
+            <!-- Text Position Selection Dropdown -->
+            <select id="font-position-select" onchange="changeFontPosition()">
+                <option value="top-left">Top Left</option>
+                <option value="top-right">Top Right</option>
+                <option value="bottom-left">Bottom Left</option>
+                <option value="bottom-right">Bottom Right</option>
+            </select>
+
+            <!-- Text Input -->
+            <input type="text" id="text-input" name="text" placeholder="Enter text">
+            <button type="button" id="add-text-button" onclick="addText()">Add Text</button>
+        </div>
+
+        <!-- Image Options Section -->
+        <div class="options-section">
+            <h2>Image Options</h2>
+            <h3>Image can be resized and repositioned.</h3>
+            <!-- Add Image as Logo -->
+            <input type="file" id="logo-input" accept="image/*">
+            <select id="image-position-select" onchange="changeImagePosition()">
+                <option value="top-left">Top Left</option>
+                <option value="top-right">Top Right</option>
+                <option value="bottom-left">Bottom Left</option>
+                <option value="bottom-right">Bottom Right</option>
+            </select>
+            <img src="" alt="Logo" id="logo-preview" class="position-top-left" style="display: none; max-width: 100px; max-height: 100px;">
+            <button type="button" id="increase-image-size" onclick="increaseImageSize()">+</button>
+            <button type="button" id="decrease-image-size" onclick="decreaseImageSize()">-</button>
+        </div>
+
+        <p align="right">powered by <a href="https://rtsp.me" title="RTSP.ME - Free website RTSP video streaming service" target="_blank">rtsp.me</a></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to change font size
+        function changeFontSize() {
+            const fontSize = document.getElementById('font-size-select').value;
+            const userText = document.getElementById('user-text');
+            userText.style.fontSize = fontSize + 'px';
+        }
+
+        // Function to change font color
+        function changeFontColor() {
+            const fontColor = document.getElementById('font-color-select').value;
+            const userText = document.getElementById('user-text');
+            userText.style.color = fontColor;
+        }
+
+        // Function to change font position
+        function changeFontPosition() {
+            const fontPosition = document.getElementById('font-position-select').value;
+            const userText = document.getElementById('user-text');
+            userText.classList.remove('position-top-left', 'position-top-right', 'position-bottom-left', 'position-bottom-right');
+            userText.classList.add('position-' + fontPosition);
+        }
+
+        // Function to handle logo selection
+        document.getElementById('logo-input').addEventListener('change', function() {
+            const logoPreview = document.getElementById('logo-preview');
+            const fileInput = this;
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    logoPreview.style.display = 'block';
+                    logoPreview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        // Function to add text and save it to MongoDB
+        function addText() {
+            const textInput = document.getElementById('text-input').value;
+
+            // Send the text to the server for storage
+            $.ajax({
+                type: 'POST',
+                url: '/submit',
+                data: { text: textInput }, // Send the text data to the server
+                success: function(response) {
+                    // Update the user-text element with the new text
+                    $('#user-text').text(response.user_text);
+                }
+            });
+        }
+
+        // Function to increase image size
+        function increaseImageSize() {
+            const logoPreview = document.getElementById('logo-preview');
+            const currentWidth = logoPreview.width;
+            logoPreview.style.width = (currentWidth + 10) + 'px';
+        }
+
+        // Function to decrease image size
+        function decreaseImageSize() {
+            const logoPreview = document.getElementById('logo-preview');
+            const currentWidth = logoPreview.width;
+            if (currentWidth > 10) {
+                logoPreview.style.width = (currentWidth - 10) + 'px';
+            }
+        }
+
+        // Function to change image position
+        function changeImagePosition() {
+            const imagePosition = document.getElementById('image-position-select').value;
+            const logoPreview = document.getElementById('logo-preview');
+            logoPreview.classList.remove('position-top-left', 'position-top-right', 'position-bottom-left', 'position-bottom-right');
+            logoPreview.classList.add('position-' + imagePosition);
+        }
+    </script>
+</body>
+
+</html>
