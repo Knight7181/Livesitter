@@ -15,3 +15,15 @@ Persistence: Text entered by users is saved to a MongoDB database, allowing the 
 ## TEXT ADDED
 ![Text Added ](https://github.com/Knight7181/Livesitter/assets/100278574/6b67bcf5-fddd-4f5a-aba7-90e53e7ff6be)
 
+## TEXT RESIZE, COLOR and REPOSITION
+![text postion and color](https://github.com/Knight7181/Livesitter/assets/100278574/300c8a82-5d93-4e72-b0bc-c3e250bb00da)
+
+## IMAGE ADDED
+![image added](https://github.com/Knight7181/Livesitter/assets/100278574/63518067-19c6-481c-ba1a-1df7d5d0d303)
+
+## IMAGE RESIZE and REPOSITION
+![image size and positon](https://github.com/Knight7181/Livesitter/assets/100278574/28a41fc8-b386-4814-b9c3-b8b86a4141a1)
+
+
+
+
